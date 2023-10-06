@@ -5,7 +5,7 @@
 #include "print.h"
 
 
-void DataSet_print(DataSet *data_set) {
+void DataSet_print(DataSet* data_set) {
 	printf("DataSet {\n");
 	for (int i = 0; i < data_set->length; ++i) {
 		printf("    {");
@@ -41,7 +41,7 @@ void DataSet_print(DataSet *data_set) {
 }
 
 
-void FullConnected_print_weights(FullConnected *layer) {
+void FullConnected_print_weights(FullConnected* layer) {
 	printf("weights {\n");
 	for (int i = 0; i < layer->layers_length - 1; ++i) {
 		printf("    {\n");
@@ -72,7 +72,7 @@ void FullConnected_print_weights(FullConnected *layer) {
 	printf("}\n");
 }
 
-void FullConnected_print_biases(FullConnected *layer) {
+void FullConnected_print_biases(FullConnected* layer) {
 	printf("biases {\n");
 	for (int i = 0; i < layer->layers_length - 1; ++i) {
 		printf("    {");
@@ -94,7 +94,7 @@ void FullConnected_print_biases(FullConnected *layer) {
 	printf("}\n");
 }
 
-void FullConnected_print_x(FullConnected *layer) {
+void FullConnected_print_x(FullConnected* layer) {
 	printf("x {\n");
 	for (int i = 0; i < layer->layers_length; ++i) {
 		printf("    {");
@@ -117,7 +117,7 @@ void FullConnected_print_x(FullConnected *layer) {
 }
 
 
-void FullConnected_print_delta_weights(FullConnected *layer) {
+void FullConnected_print_delta_weights(FullConnected* layer) {
 	printf("delta_weights {\n");
 	for (int i = 0; i < layer->layers_length - 1; ++i) {
 		printf("    {\n");
@@ -148,7 +148,7 @@ void FullConnected_print_delta_weights(FullConnected *layer) {
 	printf("}\n");
 }
 
-void FullConnected_print_delta_biases(FullConnected *layer) {
+void FullConnected_print_delta_biases(FullConnected* layer) {
 	printf("delta_biases {\n");
 	for (int i = 0; i < layer->layers_length - 1; ++i) {
 		printf("    {");
@@ -170,7 +170,7 @@ void FullConnected_print_delta_biases(FullConnected *layer) {
 	printf("}\n");
 }
 
-void FullConnected_print_gradient(FullConnected *layer) {
+void FullConnected_print_gradient(FullConnected* layer) {
 	printf("gradient {\n");
 	for (int i = 0; i < layer->layers_length; ++i) {
 		printf("    {");

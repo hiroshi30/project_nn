@@ -38,7 +38,7 @@ double ReLU_df(double x) {
 	return 0;
 }
 
-void SoftMax_f(int length, double *x, double *y) {
+void SoftMax_f(int length, double* x, double* y) {
 	double summ = 0;
 	for (int i = 0; i < length; ++i) {
 		summ += pow(e, x[i]);

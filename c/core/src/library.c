@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <stdlib.h>
 
 #include "library.h"
@@ -41,13 +42,13 @@ void DataSet_add(DataSet *data_set, double data[]) {
 	data_set->length += 1;
 	data_set->pairs = (Pair **)realloc(data_set->pairs, data_set->length * sizeof(Pair *));
 	data_set->pairs[data_set->length - 1] = (Pair *)malloc(sizeof(Pair));
-	data_set->pairs[data_set->length - 1]->input = (double *)malloc(sizeof(double) * input_length);
-	for (int j = 0; j < input_length; ++j) {
-		data_set->pairs[data_set->length - 1]->input[j] = data[data_set->length - 1 * (input_length + output_length) + j];
+	data_set->pairs[data_set->length - 1]->input = (double *)malloc(sizeof(double) * data_set->input_length);
+	for (int j = 0; j < data_set->input_length; ++j) {
+		data_set->pairs[data_set->length - 1]->input[j] = data[j];
 	}
 
-	data_set->pairs[data_set->length - 1]->output = (double *)malloc(sizeof(double) * output_length);
-	for (int j = 0; j < output_length; ++j) {
-		data_set->pairs[data_set->length - 1]->output[j] = data[data_set->length - 1 * (input_length + output_length) + input_length + j];
+	data_set->pairs[data_set->length - 1]->output = (double *)malloc(sizeof(double) * data_set->output_length);
+	for (int j = 0; j < data_set->output_length; ++j) {
+		data_set->pairs[data_set->length - 1]->output[j] = data[data_set->input_length + j];
 	}
 }

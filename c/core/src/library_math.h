@@ -11,7 +11,7 @@ double Sigmoid_df(double x);
 double ReLU_f(double x);
 double ReLU_df(double x);
 
-void SoftMax_f(int length, double *x, double *y);
+void SoftMax_f(int length, double* x, double* y);
 double SoftMax_df(double x);
 
 double MSE_f(double ideal, double output);

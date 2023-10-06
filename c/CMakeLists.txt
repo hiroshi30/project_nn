@@ -2,8 +2,8 @@ cmake_minimum_required(VERSION 3.26.3 FATAL_ERROR)
 project(project_nn_c LANGUAGES C)
 
 
-option(core_compile "" OFF)
-option(print_compile "" OFF)
+option(core_compile "" ON)
+option(print_compile "" ON)
 option(svm_compile "" ON)
 option(tests_compile "" OFF)
 
