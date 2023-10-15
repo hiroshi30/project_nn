@@ -24,11 +24,11 @@ target_link_libraries(svm
     SDL2main
     SDL2
 
-    #m
-    #dinput8
-    #dxguid
-    #dxerr8
-    #user32
+    m
+    dinput8
+    dxguid
+    dxerr8
+    user32
 
     version
     uuid
