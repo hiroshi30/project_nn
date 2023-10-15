@@ -139,9 +139,9 @@ int main(int argc, char* argv[]) {
                     if (surface[xi][yi] == 0) {
                         SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
                     } else if (surface[xi][yi] == 1) {
-                        SDL_SetRenderDrawColor(renderer, 0.5 * type_colors[0]->r, 0.5 * type_colors[0]->g, 0.5 * type_colors[0]->b, type_colors[0]->a);
+                        SDL_SetRenderDrawColor(renderer, 2 * type_colors[0]->r, 2 * type_colors[0]->g, 2 * type_colors[0]->b, type_colors[0]->a);
                     } else if (surface[xi][yi] == 2) {
-                        SDL_SetRenderDrawColor(renderer, 0.5 * type_colors[1]->r, 0.5 * type_colors[1]->g, 0.5 * type_colors[1]->b, type_colors[1]->a);
+                        SDL_SetRenderDrawColor(renderer, 2 * type_colors[1]->r, 2 * type_colors[1]->g, 2 * type_colors[1]->b, type_colors[1]->a);
                     }
                     SDL_RenderDrawPoint(renderer, xi, yi);
                 }
