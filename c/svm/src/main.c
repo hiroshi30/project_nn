@@ -12,21 +12,13 @@
 
 int init();
 void quit();
-void draw_circle(double x, double y, double radius, SDL_Color* color);
-void draw_bordered_circle(double x, double y, double radius, double border, SDL_Color* color, SDL_Color* border_color);
+void set_color(SDL_Color* color);
+void draw_circle(double x, double y, double radius);
 void draw_type_border(int border_size);
 
 
 SDL_Window* window = NULL;
 SDL_Renderer* renderer = NULL;
-SDL_Event event;
-int surface[window_width][window_height];
-
-int types_count = 2;
-SDL_Color** type_colors;
-
-int x, y;
-int type = 0;
 
 
 int main(int argc, char* argv[]) {
@@ -34,25 +26,41 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
+    int surface[window_width][window_height];
     for (int xi = 0; xi < window_width; ++xi) {
         for (int yi = 0; yi < window_height; ++yi) {
             surface[xi][yi] = 0;
         }
     }
 
-    type_colors = (SDL_Color**)malloc(sizeof(SDL_Color*) * types_count);
+    int types_count = 2;
+    SDL_Color** colors = (SDL_Color**)malloc(sizeof(SDL_Color*) * types_count);
 
-    type_colors[0] = (SDL_Color*)malloc(sizeof(SDL_Color));
-    type_colors[0]->r = 220;
-    type_colors[0]->g = 40;
-    type_colors[0]->b = 55;
-    type_colors[0]->a = 255;
+    colors[0] = (SDL_Color*)malloc(sizeof(SDL_Color));
+    colors[0]->r = 200;
+    colors[0]->g = 40;
+    colors[0]->b = 55;
+    colors[0]->a = 255;
 
-    type_colors[1] = (SDL_Color*)malloc(sizeof(SDL_Color));
-    type_colors[1]->r = 30;
-    type_colors[1]->g = 230;
-    type_colors[1]->b = 38;
-    type_colors[1]->a = 255;
+    colors[1] = (SDL_Color*)malloc(sizeof(SDL_Color));
+    colors[1]->r = 30;
+    colors[1]->g = 200;
+    colors[1]->b = 38;
+    colors[1]->a = 255;
+
+    SDL_Color** background_colors = (SDL_Color**)malloc(sizeof(SDL_Color*) * types_count);
+
+    background_colors[0] = (SDL_Color*)malloc(sizeof(SDL_Color));
+    background_colors[0]->r = 255;
+    background_colors[0]->g = 150;
+    background_colors[0]->b = 150;
+    background_colors[0]->a = 255;
+
+    background_colors[1] = (SDL_Color*)malloc(sizeof(SDL_Color));
+    background_colors[1]->r = 120;
+    background_colors[1]->g = 255;
+    background_colors[1]->b = 120;
+    background_colors[1]->a = 255;
 
     SDL_Color* border_color = (SDL_Color*)malloc(sizeof(SDL_Color));
     border_color->r = 40;
@@ -60,6 +68,11 @@ int main(int argc, char* argv[]) {
     border_color->b = 40;
     border_color->a = 255;
 
+    SDL_Color* background_color = (SDL_Color*)malloc(sizeof(SDL_Color));
+    background_color->r = 255;
+    background_color->g = 255;
+    background_color->b = 255;
+    background_color->a = 255;
 
     DataSet* train_set = DataSet_construct(0, 2, types_count, (double []){});
 
@@ -69,8 +82,12 @@ int main(int argc, char* argv[]) {
     FullConnected* layer = FullConnected_construct(3, ptr_layers, 0.6, 0.4);
     FullConnected_train_construct(layer);
 
+    int x, y;
+    int type = 0;
+
     bool run = true;
     bool action = true;
+    SDL_Event event;
 
     while (run) {
         while(SDL_PollEvent(&event) != 0) {
@@ -126,7 +143,6 @@ int main(int argc, char* argv[]) {
                     } else {
                         DataSet_add(train_set, (double[]){(double)x / window_width, (double)y / window_height, 0, 1});
                     }
-                    // printf("x: %d y: %d, %lf, %lf, %d, %d\n", x, y, (double)x / window_width, (double)y / window_height, window_width, window_height);
                     DataSet_print(train_set);
                 }
             }
@@ -136,25 +152,33 @@ int main(int argc, char* argv[]) {
             action = false;
             for (int xi = 0; xi < window_width; ++xi) {
                 for (int yi = 0; yi < window_height; ++yi) {
-                    if (surface[xi][yi] == 0) {
-                        SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-                    } else if (surface[xi][yi] == 1) {
-                        SDL_SetRenderDrawColor(renderer, 0.5 * type_colors[0]->r, 0.5 * type_colors[0]->g, 0.5 * type_colors[0]->b, type_colors[0]->a);
+                    if (surface[xi][yi] == 1) {
+                        set_color(background_colors[0]);
                     } else if (surface[xi][yi] == 2) {
-                        SDL_SetRenderDrawColor(renderer, 0.5 * type_colors[1]->r, 0.5 * type_colors[1]->g, 0.5 * type_colors[1]->b, type_colors[1]->a);
-                    }
+                        set_color(background_colors[1]);
+                    } else {
+                        set_color(background_color);
+                    } 
                     SDL_RenderDrawPoint(renderer, xi, yi);
                 }
             }
 
             for (int i = 0; i < train_set->length; ++i) {
-                draw_bordered_circle(
+                set_color(border_color);
+                draw_circle(
                     (int)(window_width * train_set->pairs[i]->input[0]),
                     (int)(window_height * train_set->pairs[i]->input[1]),
-                    15, 3, type_colors[(int)train_set->pairs[i]->output[1]], border_color
+                    15
+                );
+                set_color(colors[(int)train_set->pairs[i]->output[1]]);
+                draw_circle(
+                    (int)(window_width * train_set->pairs[i]->input[0]),
+                    (int)(window_height * train_set->pairs[i]->input[1]),
+                    15 - 2
                 );
             }
 
+            set_color(colors[type]);
             draw_type_border(5);
 
             SDL_RenderPresent(renderer);
@@ -162,9 +186,16 @@ int main(int argc, char* argv[]) {
     }
 
     for (int i = 0; i < types_count; ++i) {
-        free(type_colors[i]);
+        free(colors[i]);
     }
-    free(type_colors);
+    free(colors);
+    
+    for (int i = 0; i < types_count; ++i) {
+        free(background_colors[i]);
+    }
+    free(background_colors);
+
+    free(background_color);
     free(border_color);
 
     FullConnected_train_deconstruct(layer);
@@ -207,8 +238,12 @@ void quit() {
 }
 
 
-void draw_circle(double x, double y, double radius, SDL_Color* color) {
+void set_color(SDL_Color* color) {
     SDL_SetRenderDrawColor(renderer, color->r, color->g, color->b, color->a);
+}
+
+
+void draw_circle(double x, double y, double radius) {
     for (int xi = x - radius; xi <= x + radius; ++xi) {
         for (int yi = y - radius; yi <= y + radius; ++yi) {
             if ( (xi - x) * (xi - x) + (yi - y) * (yi - y) <= radius * radius ) {
@@ -219,15 +254,7 @@ void draw_circle(double x, double y, double radius, SDL_Color* color) {
 }
 
 
-void draw_bordered_circle(double x, double y, double radius, double border, SDL_Color* color, SDL_Color* border_color) {
-    draw_circle(x, y, radius, border_color);
-    draw_circle(x, y, radius - border, color);
-}
-
-
 void draw_type_border(int border_size) {
-    SDL_SetRenderDrawColor(renderer, type_colors[type]->r, type_colors[type]->g, type_colors[type]->b, type_colors[type]->a);
-
     SDL_RenderFillRect(renderer, &(SDL_Rect){0, 0, window_width, border_size});
     SDL_RenderFillRect(renderer, &(SDL_Rect){0, window_height - border_size, window_width, border_size});
     SDL_RenderFillRect(renderer, &(SDL_Rect){0, border_size, border_size, window_width - 2 * border_size});
