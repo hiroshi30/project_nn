@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <stdlib.h>
 #include <SDL.h>
 
 #include <nn.h>
@@ -19,19 +20,22 @@ void draw_type_border(int border_size);
 
 SDL_Window* window = NULL;
 SDL_Renderer* renderer = NULL;
+int surface[window_width][window_height];
 
 
 int main(int argc, char* argv[]) {
     if (init() != 0) {
+        printf("!!! ERROR in init() !!!\n");
         return 1;
     }
 
-    int surface[window_width][window_height];
+
     for (int xi = 0; xi < window_width; ++xi) {
         for (int yi = 0; yi < window_height; ++yi) {
             surface[xi][yi] = 0;
         }
     }
+
 
     int types_count = 2;
     SDL_Color** colors = (SDL_Color**)malloc(sizeof(SDL_Color*) * types_count);
@@ -74,13 +78,15 @@ int main(int argc, char* argv[]) {
     background_color->b = 255;
     background_color->a = 255;
 
-    DataSet* train_set = DataSet_construct(0, 2, types_count, (double []){});
+
+    DataSet* train_set = DataSet_construct(0, 2, types_count, (double [0]){});
 
     int layers[] = {2, 4, types_count};
     int* ptr_layers = layers;
 
     FullConnected* layer = FullConnected_construct(3, ptr_layers, 0.6, 0.4);
     FullConnected_train_construct(layer);
+
 
     int x, y;
     int type = 0;
@@ -116,7 +122,7 @@ int main(int argc, char* argv[]) {
                 }
                 if (event.key.keysym.sym == SDLK_q) {
                     action = true;
-                    printf("%d\n", FullConnected_train_alpha(layer, train_set, 0.0005));
+                    printf("epochs %d\n", FullConnected_train_alpha(layer, train_set, 0.0003));
                     FullConnected_check(layer, train_set);
                     for (int xi = 0; xi < window_width; ++xi) {
                         for (int yi = 0; yi < window_height; ++yi) {
