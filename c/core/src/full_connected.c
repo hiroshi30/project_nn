@@ -6,8 +6,8 @@
 #include "library.h"
 #include "full_connected.h"
 
-#define activation_f(x) Sigmoid_f(x)
-#define activation_df(x) Sigmoid_df(x)
+#define activation_f(x) Sigmoid.f(x)
+#define activation_df(x) Sigmoid.df(x)
 #define loss_f(ideal, output) MSE_f(ideal, output)
 #define loss_df(ideal, output) MSE_df(ideal, output)
 

@@ -5,8 +5,16 @@
 double random(double from, double to);
 double random_int(int from, int to);
 
+
+typedef struct ActivationFunction {
+	double (*f) (double x);
+	double (*df) (double ideal, double output);
+};
+
+
 double Sigmoid_f(double x);
 double Sigmoid_df(double x);
+extern ActivationFunction Sigmoid;
 
 double ReLU_f(double x);
 double ReLU_df(double x);
