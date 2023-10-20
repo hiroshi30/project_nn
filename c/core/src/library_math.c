@@ -24,8 +24,8 @@ double Sigmoid_df(double x) {
 	return x * (1 - x);
 }
 ActivationFunction Sigmoid;
-Sigmoid.f = Sigmoid_f;
-Sigmoid.df = Sigmoid_df;
+// Sigmoid.f = Sigmoid_f;
+// Sigmoid.df = Sigmoid_df;
 
 double ReLU_f(double x) {
 	if (x > 0) {

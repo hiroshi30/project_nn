@@ -9,7 +9,7 @@ double random_int(int from, int to);
 typedef struct ActivationFunction {
 	double (*f) (double x);
 	double (*df) (double ideal, double output);
-};
+} ActivationFunction;
 
 
 double Sigmoid_f(double x);

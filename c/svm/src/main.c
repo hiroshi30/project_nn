@@ -14,6 +14,7 @@
 int init();
 void quit();
 void set_color(SDL_Color* color);
+void __set_color(SDL_Color* color, int r, int g, int b, int a);
 void draw_circle(double x, double y, double radius);
 void draw_type_border(int border_size);
 
@@ -39,12 +40,13 @@ int main(int argc, char* argv[]) {
 
     int types_count = 2;
     SDL_Color** colors = (SDL_Color**)malloc(sizeof(SDL_Color*) * types_count);
+    __set_color(colors[0], 200, 40, 55, 255);
 
-    colors[0] = (SDL_Color*)malloc(sizeof(SDL_Color));
-    colors[0]->r = 200;
-    colors[0]->g = 40;
-    colors[0]->b = 55;
-    colors[0]->a = 255;
+    // colors[0] = (SDL_Color*)malloc(sizeof(SDL_Color));
+    // colors[0]->r = 200;
+    // colors[0]->g = 40;
+    // colors[0]->b = 55;
+    // colors[0]->a = 255;
 
     colors[1] = (SDL_Color*)malloc(sizeof(SDL_Color));
     colors[1]->r = 30;
@@ -77,7 +79,19 @@ int main(int argc, char* argv[]) {
     background_color->g = 255;
     background_color->b = 255;
     background_color->a = 255;
+    // __set_color(colors[1], 30, 200, 38, 255);
 
+    // SDL_Color** background_colors = (SDL_Color**)malloc(sizeof(SDL_Color*) * types_count);
+    // __set_color(background_colors[0], 30, 255, 150, 255);
+    // __set_color(background_colors[1], 120, 255, 120, 255);
+
+    // SDL_Color* border_color;
+    // __set_color(border_color, 40, 40, 40, 255);
+
+    // SDL_Color* background_color;
+    // __set_color(background_color, 255, 255, 255, 255);
+
+    printf("r %d g %d b %d a %d\n", colors[0]->r, colors[0]->g, colors[0]->b, colors[0]->a);
 
     DataSet* train_set = DataSet_construct(0, 2, types_count, (double [0]){});
 
@@ -246,6 +260,16 @@ void quit() {
 
 void set_color(SDL_Color* color) {
     SDL_SetRenderDrawColor(renderer, color->r, color->g, color->b, color->a);
+}
+
+
+void __set_color(SDL_Color* color, int r, int g, int b, int a) {
+    color = (SDL_Color*)malloc(sizeof(SDL_Color));
+    color->r = r;
+    color->g = g;
+    color->b = b;
+    color->a = a;
+    printf("123 r %d g %d b %d a %d\n", color->r, color->g, color->b, color->a);
 }
 
 
