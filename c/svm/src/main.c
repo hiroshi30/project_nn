@@ -14,7 +14,7 @@
 int init();
 void quit();
 void set_color(SDL_Color* color);
-void __set_color(SDL_Color* color, int r, int g, int b, int a);
+SDL_Color* __set_color(SDL_Color* color, int r, int g, int b, int a);
 void draw_circle(double x, double y, double radius);
 void draw_type_border(int border_size);
 
@@ -40,7 +40,7 @@ int main(int argc, char* argv[]) {
 
     int types_count = 2;
     SDL_Color** colors = (SDL_Color**)malloc(sizeof(SDL_Color*) * types_count);
-    __set_color(colors[0], 200, 40, 55, 255);
+    colors[0] = __set_color(colors[0], 200, 40, 55, 255);
 
     // colors[0] = (SDL_Color*)malloc(sizeof(SDL_Color));
     // colors[0]->r = 200;
@@ -263,12 +263,13 @@ void set_color(SDL_Color* color) {
 }
 
 
-void __set_color(SDL_Color* color, int r, int g, int b, int a) {
+SDL_Color* __set_color(SDL_Color* color, int r, int g, int b, int a) {
     color = (SDL_Color*)malloc(sizeof(SDL_Color));
     color->r = r;
     color->g = g;
     color->b = b;
     color->a = a;
+    return color;
     printf("123 r %d g %d b %d a %d\n", color->r, color->g, color->b, color->a);
 }
 
