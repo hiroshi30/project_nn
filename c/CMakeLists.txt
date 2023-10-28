@@ -1,5 +1,9 @@
 cmake_minimum_required(VERSION 3.26.3 FATAL_ERROR)
-project(project_nn_c LANGUAGES C)
+project(project_nn
+	VERSION 1.0.0
+	DESCRIPTION "neural network with feed forward"
+	LANGUAGES C
+)
 
 
 option(core_compile "" ON)
@@ -21,16 +25,16 @@ set(COMPILE_FEATURES
 
 
 if (core_compile)
-	message("CORE COMPILATION")
+	message("   CORE COMPILATION")
 	add_subdirectory(core)
 endif()
 
 if (print_compile)
-	message("PRINT COMPILATION")
+	message("   PRINT COMPILATION")
 	add_subdirectory(print)
 endif()
 
 if (svm_compile)
-	message("SVM COMPILATION")
+	message("   SVM COMPILATION")
 	add_subdirectory(svm)
 endif()

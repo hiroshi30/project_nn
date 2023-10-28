@@ -1,9 +1,11 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdlib.h>
+
 #include <SDL.h>
 
 #include <kazamori.h>
+#include <print.h>
 
 
 #define title "SVM"

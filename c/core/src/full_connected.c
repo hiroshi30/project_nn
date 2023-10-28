@@ -1,5 +1,4 @@
 #include <stdlib.h>
-#include <math.h>
 
 #include "library_math.h"
 #include "data_set.h"
