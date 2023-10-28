@@ -26,7 +26,7 @@ DataSet *DataSet_construct(int length, int input_length, int output_length, doub
 	return data_set;
 }
 
-void DataSet_deconstruct(DataSet *data_set) {
+void DataSet_destruct(DataSet *data_set) {
 	for (int i = 0; i < data_set->length; ++i) {
 		free(data_set->input[i]);
 		free(data_set->output[i]);

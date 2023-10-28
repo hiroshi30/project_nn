@@ -8,7 +8,8 @@ project(project_nn
 
 option(core_compile "" ON)
 option(print_compile "" ON)
-option(svm_compile "" ON)
+option(svm_compile "" OFF)
+option(app_compile "" ON)
 
 
 set(CMAKE_GENERATOR MinGW Makefiles)
@@ -37,4 +38,9 @@ endif()
 if (svm_compile)
 	message("   SVM COMPILATION")
 	add_subdirectory(svm)
+endif()
+
+if (app_compile)
+	message("   APP COMPILATION")
+	add_subdirectory(app)
 endif()

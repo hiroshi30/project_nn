@@ -181,10 +181,10 @@ int main(int argc, char* argv[]) {
     free(background_color);
     free(border_color);
 
-    FullConnected_train_deconstruct(layer);
-    FullConnected_deconstruct(layer);
+    FullConnected_train_destruct(layer);
+    FullConnected_destruct(layer);
 
-    DataSet_deconstruct(train_set);
+    DataSet_destruct(train_set);
 
     quit();
 

@@ -47,7 +47,7 @@ FullConnected* FullConnected_construct(int layers_length, int* layers, double le
 	return layer;
 }
 
-void FullConnected_deconstruct(FullConnected* layer) {
+void FullConnected_destruct(FullConnected* layer) {
 	for (int i = 0; i < layer->layers_length - 1; ++i) {
 		for (int j = 0; j < layer->layers[i]; ++j) {
 			free(layer->weights[i][j]);
@@ -98,7 +98,7 @@ void FullConnected_train_construct(FullConnected* layer) {
 	}
 }
 
-void FullConnected_train_deconstruct(FullConnected* layer) {
+void FullConnected_train_destruct(FullConnected* layer) {
 	for (int i = 0; i < layer->layers_length; ++i) {
 		free(layer->gradient[i]);
 	}
