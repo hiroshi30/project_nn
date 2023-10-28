@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <SDL.h>
 
-#include <nn.h>
+#include <kazamori.h>
 
 
 #define title "SVM"

@@ -19,8 +19,3 @@ void FullConnected_train_deconstruct(FullConnected* layer);
 
 void FullConnected_forward(FullConnected* layer, double* input);
 void FullConnected_backward(FullConnected* layer, double* output);
-
-double FullConnected_calculate_error(FullConnected* layer, DataSet* data_set);
-void FullConnected_train(FullConnected* layer, DataSet* data_set, int epochs);
-int FullConnected_train_alpha(FullConnected* layer, DataSet* data_set, double alpha);
-void FullConnected_check(FullConnected* layer, DataSet* data_set);
