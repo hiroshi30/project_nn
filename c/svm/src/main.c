@@ -14,7 +14,7 @@
 int init();
 void quit();
 void set_color(SDL_Color* color);
-SDL_Color* __set_color(SDL_Color* color, int r, int g, int b, int a);
+SDL_Color* create_color(SDL_Color* color, int r, int g, int b, int a);
 void draw_circle(double x, double y, double radius);
 void draw_type_border(int border_size);
 
@@ -40,18 +40,18 @@ int main(int argc, char* argv[]) {
 
     int types_count = 2;
     SDL_Color** colors = (SDL_Color**)malloc(sizeof(SDL_Color*) * types_count);
-    colors[0] = __set_color(colors[0], 200, 40, 55, 255);
-    colors[1] = __set_color(colors[1], 30, 200, 38, 255);
+    colors[0] = create_color(colors[0], 200, 40, 55, 255);
+    colors[1] = create_color(colors[1], 30, 200, 38, 255);
 
     SDL_Color** background_colors = (SDL_Color**)malloc(sizeof(SDL_Color*) * types_count);
-    background_colors[0] = __set_color(background_colors[0], 255, 150, 150, 255);
-    background_colors[1] = __set_color(background_colors[1], 120, 255, 120, 255);
+    background_colors[0] = create_color(background_colors[0], 255, 150, 150, 255);
+    background_colors[1] = create_color(background_colors[1], 120, 255, 120, 255);
 
     SDL_Color* border_color = (SDL_Color*)malloc(sizeof(SDL_Color));
-    border_color = __set_color(border_color, 40, 40, 40, 255);
-    
+    border_color = create_color(border_color, 40, 40, 40, 255);
+
     SDL_Color* background_color = (SDL_Color*)malloc(sizeof(SDL_Color));
-    background_color = __set_color(background_color, 255, 255, 255, 255);
+    background_color = create_color(background_color, 255, 255, 255, 255);
 
 
     DataSet* train_set = DataSet_construct(0, 2, types_count, (double [0]){});
@@ -224,7 +224,7 @@ void set_color(SDL_Color* color) {
 }
 
 
-SDL_Color* __set_color(SDL_Color* color, int r, int g, int b, int a) {
+SDL_Color* create_color(SDL_Color* color, int r, int g, int b, int a) {
     color = (SDL_Color*)malloc(sizeof(SDL_Color));
     color->r = r;
     color->g = g;

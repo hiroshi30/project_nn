@@ -5,7 +5,7 @@ target_compile_features(core PRIVATE ${COMPILE_FEATURES})
 
 target_sources(core PRIVATE
 	src/library_math.c
-	src/library.c
+	src/data_set.c
 	src/full_connected.c
 )
 
