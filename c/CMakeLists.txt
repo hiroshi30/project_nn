@@ -5,7 +5,6 @@ project(project_nn_c LANGUAGES C)
 option(core_compile "" ON)
 option(print_compile "" ON)
 option(svm_compile "" ON)
-option(tests_compile "" OFF)
 
 
 set(CMAKE_GENERATOR MinGW Makefiles)
@@ -21,7 +20,6 @@ set(COMPILE_FEATURES
 )
 
 
-
 if (core_compile)
 	message("CORE COMPILATION")
 	add_subdirectory(core)
@@ -29,18 +27,10 @@ endif()
 
 if (print_compile)
 	message("PRINT COMPILATION")
-	target_sources(core PRIVATE
-		core/src/print.c
-	)
-	message("   complete")
+	add_subdirectory(print)
 endif()
 
 if (svm_compile)
 	message("SVM COMPILATION")
 	add_subdirectory(svm)
-endif()
-
-if (tests_compile)
-	message("TESTS COMPILATION")
-	add_subdirectory(tests)
 endif()

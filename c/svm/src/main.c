@@ -147,14 +147,14 @@ int main(int argc, char* argv[]) {
             for (int i = 0; i < train_set->length; ++i) {
                 set_color(border_color);
                 draw_circle(
-                    (int)(window_width * train_set->pairs[i]->input[0]),
-                    (int)(window_height * train_set->pairs[i]->input[1]),
+                    (int)(window_width * train_set->input[i][0]),
+                    (int)(window_height * train_set->input[i][1]),
                     15
                 );
-                set_color(colors[(int)train_set->pairs[i]->output[1]]);
+                set_color(colors[(int)train_set->output[i][1]]);
                 draw_circle(
-                    (int)(window_width * train_set->pairs[i]->input[0]),
-                    (int)(window_height * train_set->pairs[i]->input[1]),
+                    (int)(window_width * train_set->input[i][0]),
+                    (int)(window_height * train_set->input[i][1]),
                     15 - 2
                 );
             }

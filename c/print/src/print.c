@@ -2,7 +2,6 @@
 
 #include "data_set.h"
 #include "full_connected.h"
-#include "print.h"
 
 
 void DataSet_print(DataSet* data_set) {
@@ -13,9 +12,9 @@ void DataSet_print(DataSet* data_set) {
 		printf(" {");
 		for (int j = 0; j < data_set->input_length; ++j) {
 			if (j < data_set->input_length - 1) {
-				printf("%lf, ", data_set->pairs[i]->input[j]);
+				printf("%lf, ", data_set->input[i][j]);
 			} else {
-				printf("%lf", data_set->pairs[i]->input[j]);
+				printf("%lf", data_set->input[i][j]);
 			}
 		}
 		printf("}, ");
@@ -23,9 +22,9 @@ void DataSet_print(DataSet* data_set) {
 		printf("{");
 		for (int j = 0; j < data_set->output_length; ++j) {
 			if (j < data_set->output_length - 1) {
-				printf("%lf, ", data_set->pairs[i]->output[j]);
+				printf("%lf, ", data_set->output[i][j]);
 			} else {
-				printf("%lf", data_set->pairs[i]->output[j]);
+				printf("%lf", data_set->output[i][j]);
 			}
 		}
 

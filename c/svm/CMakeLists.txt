@@ -8,17 +8,18 @@ target_sources(svm PRIVATE
 )
 
 target_include_directories(svm PRIVATE
-	include
+    ${CMAKE_SOURCE_DIR}/external/SDL/include
     core
-    external/SDL/include
+    print
 )
 
 target_link_directories(svm PRIVATE
-    external/SDL/lib
+    ${CMAKE_SOURCE_DIR}/external/SDL/lib
 )
 
-target_link_libraries(svm
+target_link_libraries(svm PRIVATE
     core
+    print
 
     mingw32
     SDL2main
