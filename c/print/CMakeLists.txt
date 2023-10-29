@@ -4,7 +4,9 @@ target_compile_options(print PRIVATE ${COMPILE_OPTIONS})
 target_compile_features(print PRIVATE ${COMPILE_FEATURES})
 
 target_sources(print PRIVATE
-	src/print.c
+	src/print_data_set.c
+	src/print_full_connected.c
+	src/print_max_pooling.c
 )
 
 target_include_directories(print PRIVATE

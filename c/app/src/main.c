@@ -31,6 +31,8 @@ int main(int argc, char* argv[]) {
 		printf("},\n");
 	}
 
+	MaxPooling_print_input(layer);
+
 	for (int c = 0; c < layer->channels; ++c) {
 		for (int h = 0; h < layer->height; ++h) {
 			free(input[c][h]);
