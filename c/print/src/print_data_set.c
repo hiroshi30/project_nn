@@ -1,12 +1,14 @@
 #include <stdio.h>
 
+#include "tab.h"
 #include "data_set.h"
 
 
 void DataSet_print(DataSet* data_set) {
 	printf("DataSet {\n");
 	for (int i = 0; i < data_set->length; ++i) {
-		printf("    {");
+		printf(TAB);
+		printf("{");
 
 		printf(" {");
 		for (int j = 0; j < data_set->input_length; ++j) {

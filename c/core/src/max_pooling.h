@@ -1,7 +1,11 @@
 typedef struct MaxPooling {
-	int channels, height, width, matrix_h, matrix_w;
+	int channels;
+	int height;
+	int width;
+	int matrix_h;
+	int matrix_w;
 	double*** input;
-	double*** x;
+	double*** output;
 	double*** err;
 } MaxPooling;
 

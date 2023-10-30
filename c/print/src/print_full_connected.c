@@ -1,14 +1,18 @@
 #include <stdio.h>
 
+#include "tab.h"
 #include "full_connected.h"
 
 
 void FullConnected_print_weights(FullConnected* layer) {
 	printf("FullConnected weights {\n");
 	for (int i = 0; i < layer->layers_length - 1; ++i) {
-		printf("    {\n");
+		printf(TAB);
+		printf("{\n");
 		for (int j = 0; j < layer->layers[i]; ++j) {
-			printf("        {");
+			printf(TAB);
+			printf(TAB);
+			printf("{");
 			for (int l = 0; l < layer->layers[i + 1]; ++l) {
 				if (l < layer->layers[i + 1] - 1) {
 					printf("%lf, ", layer->weights[i][j][l]);
@@ -24,10 +28,11 @@ void FullConnected_print_weights(FullConnected* layer) {
 			}
 		}
 
+		printf(TAB);
 		if (i < layer->layers_length - 2) {
-			printf("    },\n");
+			printf("},\n");
 		} else {
-			printf("    }\n");
+			printf("}\n");
 		}
 	}
 
@@ -37,7 +42,8 @@ void FullConnected_print_weights(FullConnected* layer) {
 void FullConnected_print_biases(FullConnected* layer) {
 	printf("FullConnected biases {\n");
 	for (int i = 0; i < layer->layers_length - 1; ++i) {
-		printf("    {");
+		printf(TAB);
+		printf("{");
 		for (int j = 0; j < layer->layers[i + 1]; ++j) {
 			if (j < layer->layers[i + 1] - 1) {
 				printf("%lf, ", layer->biases[i][j]);
@@ -59,7 +65,8 @@ void FullConnected_print_biases(FullConnected* layer) {
 void FullConnected_print_x(FullConnected* layer) {
 	printf("FullConnected x {\n");
 	for (int i = 0; i < layer->layers_length; ++i) {
-		printf("    {");
+		printf(TAB);
+		printf("{");
 		for (int j = 0; j < layer->layers[i]; ++j) {
 			if (j < layer->layers[i] - 1) {
 				printf("%lf, ", layer->x[i][j]);
@@ -82,9 +89,12 @@ void FullConnected_print_x(FullConnected* layer) {
 void FullConnected_print_delta_weights(FullConnected* layer) {
 	printf("FullConnected delta_weights {\n");
 	for (int i = 0; i < layer->layers_length - 1; ++i) {
-		printf("    {\n");
+		printf(TAB);
+		printf("{\n");
 		for (int j = 0; j < layer->layers[i]; ++j) {
-			printf("        {");
+			printf(TAB);
+			printf(TAB);
+			printf("{");
 			for (int l = 0; l < layer->layers[i + 1]; ++l) {
 				if (l < layer->layers[i + 1] - 1) {
 					printf("%lf, ", layer->delta_weights[i][j][l]);
@@ -100,10 +110,11 @@ void FullConnected_print_delta_weights(FullConnected* layer) {
 			}
 		}
 
+		printf(TAB);
 		if (i < layer->layers_length - 2) {
-			printf("    },\n");
+			printf("},\n");
 		} else {
-			printf("    }\n");
+			printf("}\n");
 		}
 	}
 
@@ -113,7 +124,8 @@ void FullConnected_print_delta_weights(FullConnected* layer) {
 void FullConnected_print_delta_biases(FullConnected* layer) {
 	printf("FullConnected delta_biases {\n");
 	for (int i = 0; i < layer->layers_length - 1; ++i) {
-		printf("    {");
+		printf(TAB);
+		printf("{");
 		for (int j = 0; j < layer->layers[i + 1]; ++j) {
 			if (j < layer->layers[i + 1] - 1) {
 				printf("%lf, ", layer->delta_biases[i][j]);
@@ -135,7 +147,8 @@ void FullConnected_print_delta_biases(FullConnected* layer) {
 void FullConnected_print_gradient(FullConnected* layer) {
 	printf("FullConnected gradient {\n");
 	for (int i = 0; i < layer->layers_length; ++i) {
-		printf("    {");
+		printf(TAB);
+		printf("{");
 		for (int j = 0; j < layer->layers[i]; ++j) {
 			if (j < layer->layers[i] - 1) {
 				printf("%lf, ", layer->gradient[i][j]);
