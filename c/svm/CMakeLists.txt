@@ -18,9 +18,6 @@ target_link_directories(svm PRIVATE
 )
 
 target_link_libraries(svm PRIVATE
-    core
-    print
-
     mingw32
     SDL2main
     SDL2
@@ -41,6 +38,9 @@ target_link_libraries(svm PRIVATE
     ole32
     oleaut32
     setupapi
+
+    core
+    print
 )
 
 set_target_properties(svm PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/)

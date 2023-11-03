@@ -1,6 +1,6 @@
 #include <stdlib.h>
 
-#include "library_math.h"
+#include "library.h"
 #include "data_set.h"
 #include "full_connected.h"
 
@@ -11,7 +11,8 @@
 
 
 FullConnected* FullConnected_construct(int layers_length, int* layers, double learning_rate, double momentum) {
-	FullConnected* layer = malloc(sizeof(FullConnected));
+	FullConnected* layer = (FullConnected*)malloc(sizeof(FullConnected));
+	
 	layer->layers_length = layers_length;
 	layer->layers = layers;
 	layer->learning_rate = learning_rate;

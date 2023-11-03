@@ -55,12 +55,12 @@ int main(int argc, char* argv[]) {
     SDL_Color* background_color = (SDL_Color*)malloc(sizeof(SDL_Color));
     background_color = create_color(background_color, 255, 255, 255, 255);
 
-
-    DataSet* train_set = DataSet_construct(0, 2, types_count, (double [0]){});
+    DataSet* train_set = DataSet_construct(0, 2, types_count);
 
     int layers[] = {2, 4, types_count};
     int* ptr_layers = layers;
 
+    // asdadasdasdasdasdadasda
     FullConnected* layer = FullConnected_construct(3, ptr_layers, 0.6, 0.4);
     FullConnected_train_construct(layer);
 
@@ -71,6 +71,7 @@ int main(int argc, char* argv[]) {
     bool run = true;
     bool action = true;
     SDL_Event event;
+
 
     while (run) {
         while(SDL_PollEvent(&event) != 0) {

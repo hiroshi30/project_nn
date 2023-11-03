@@ -1,21 +1,21 @@
 #include <stdio.h>
 #include <math.h>
 
-#include "library_math.h"
+#include "library.h"
 #include "data_set.h"
 #include "full_connected.h"
 
 
 double FullConnected_calculate_error(FullConnected* layer, DataSet* data_set) {
 	double error = 0;
-	for (int i = 0; i < data_set->length; ++i) {
+	for (int i = 0; i < data_set->__current_length__; ++i) {
 		FullConnected_forward(layer, data_set->input[i]);
 		for (int j = 0; j < data_set->output_length; ++j) {
 			error += fabs(data_set->output[i][j] - layer->x[layer->layers_length - 1][j]);
 		}
 		error /= data_set->output_length;
 	}
-	error /= data_set->length;
+	error /= data_set->__current_length__;
 
 	return error;
 }
@@ -23,7 +23,7 @@ double FullConnected_calculate_error(FullConnected* layer, DataSet* data_set) {
 void FullConnected_train(FullConnected* layer, DataSet* data_set, int epochs) {
 	int index;
 	for (int i = 0; i < epochs; ++i) {
-		index = random_int(0, data_set->length - 1);
+		index = random_int(0, data_set->__current_length__ - 1);
 
 		FullConnected_forward(layer, data_set->input[index]);
 		FullConnected_backward(layer, data_set->output[index]);
@@ -50,7 +50,7 @@ int FullConnected_train_alpha(FullConnected* layer, DataSet* data_set, double al
 }
 
 void FullConnected_check(FullConnected* layer, DataSet* data_set) {
-	for (int i = 0; i < data_set->length; ++i) {
+	for (int i = 0; i < data_set->__current_length__; ++i) {
 		FullConnected_forward(layer, data_set->input[i]);
 		printf("%d {", i);
 		for (int j = 0; j < data_set->output_length; ++j) {

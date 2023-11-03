@@ -1,7 +1,8 @@
 typedef struct FullConnected {
 	int layers_length;
 	int* layers;
-	double learning_rate, momentum;
+	double learning_rate;
+	double momentum;
 	double** x;
 	double*** weights;
 	double** biases;

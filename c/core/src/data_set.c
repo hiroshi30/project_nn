@@ -3,8 +3,10 @@
 #include "data_set.h"
 
 
-DataSet *DataSet_construct(int length, int input_length, int output_length, double data[]) {
+DataSet *DataSet_construct(int length, int input_length, int output_length) {
 	DataSet *data_set = malloc(sizeof(DataSet));
+
+	data_set->__current_length__ = 0;
 	data_set->length = length;
 	data_set->input_length = input_length;
 	data_set->output_length = output_length;
@@ -13,14 +15,7 @@ DataSet *DataSet_construct(int length, int input_length, int output_length, doub
 
 	for (int i = 0; i < length; ++i) {
 		data_set->input[i] = (double*)malloc(sizeof(double) * input_length);
-		for (int j = 0; j < input_length; ++j) {
-			data_set->input[i][j] = data[i * (input_length + output_length) + j];
-		}
-
 		data_set->output[i] = (double*)malloc(sizeof(double) * output_length);
-		for (int j = 0; j < output_length; ++j) {
-			data_set->output[i][j] = data[i * (input_length + output_length) + input_length + j];
-		}
 	}
 
 	return data_set;
@@ -37,17 +32,24 @@ void DataSet_destruct(DataSet *data_set) {
 }
 
 void DataSet_add(DataSet *data_set, double data[]) {
-	data_set->length += 1;
-	data_set->input = (double**)realloc(data_set->input, data_set->length * sizeof(double*));
-	data_set->output = (double**)realloc(data_set->output, data_set->length * sizeof(double*));
+	if (data_set->__current_length__ == data_set->length) {
+		++data_set->length;
+		++data_set->__current_length__;
 
-	data_set->input[data_set->length - 1] = (double*)malloc(sizeof(double) * data_set->input_length);
-	for (int j = 0; j < data_set->input_length; ++j) {
-		data_set->input[data_set->length - 1][j] = data[j];
+		data_set->input = (double**)realloc(data_set->input, data_set->length * sizeof(double*));
+		data_set->input[data_set->length - 1] = (double*)malloc(sizeof(double) * data_set->input_length);
+
+		data_set->output = (double**)realloc(data_set->output, data_set->length * sizeof(double*));
+		data_set->output[data_set->length - 1] = (double*)malloc(sizeof(double) * data_set->output_length);
+	} else {
+		++data_set->__current_length__;
 	}
 
-	data_set->output[data_set->length - 1] = (double*)malloc(sizeof(double) * data_set->output_length);
-	for (int j = 0; j < data_set->output_length; ++j) {
-		data_set->output[data_set->length - 1][j] = data[data_set->input_length + j];
+	for (int i = 0; i < data_set->input_length; ++i) {
+		data_set->input[data_set->__current_length__ - 1][i] = data[i];
+	}
+
+	for (int i = 0; i < data_set->output_length; ++i) {
+		data_set->output[data_set->__current_length__ - 1][i] = data[data_set->input_length + i];
 	}
 }

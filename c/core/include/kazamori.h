@@ -1,4 +1,4 @@
-#include "library_math.h"
+#include "library.h"
 
 #include "data_set.h"
 #include "full_connected.h"

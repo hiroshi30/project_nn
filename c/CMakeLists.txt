@@ -8,8 +8,8 @@ project(project_nn
 
 option(core_compile "" ON)
 option(print_compile "" ON)
-option(svm_compile "" OFF)
-option(app_compile "" ON)
+option(svm_compile "" ON)
+option(app_compile "" OFF)
 
 
 set(CMAKE_GENERATOR MinGW Makefiles)
