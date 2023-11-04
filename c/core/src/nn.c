@@ -11,7 +11,7 @@ double FullConnected_calculate_error(FullConnected* layer, DataSet* data_set) {
 	for (int i = 0; i < data_set->__current_length__; ++i) {
 		FullConnected_forward(layer, data_set->input[i]);
 		for (int j = 0; j < data_set->output_length; ++j) {
-			error += fabs(data_set->output[i][j] - layer->x[layer->layers_length - 1][j]);
+			error += fabs(data_set->output[i][j] - layer->x[layer->length - 1][j]);
 		}
 		error /= data_set->output_length;
 	}
@@ -55,9 +55,9 @@ void FullConnected_check(FullConnected* layer, DataSet* data_set) {
 		printf("%d {", i);
 		for (int j = 0; j < data_set->output_length; ++j) {
 			if (j < data_set->output_length - 1) {
-				printf("%lf, ", layer->x[layer->layers_length - 1][j]);
+				printf("%lf, ", layer->x[layer->length - 1][j]);
 			} else {
-				printf("%lf", layer->x[layer->layers_length - 1][j]);
+				printf("%lf", layer->x[layer->length - 1][j]);
 			}
 		}
 		printf("} -> ");

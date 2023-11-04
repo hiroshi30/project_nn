@@ -9,8 +9,8 @@ target_sources(core PRIVATE
 	src/data_set.c
 	src/full_connected.c
 
-	#src/image_set.c
-	#src/max_pooling.c
+	src/image_set.c
+	src/max_pooling.c
 
 	src/nn.c
 )

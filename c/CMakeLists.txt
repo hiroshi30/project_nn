@@ -1,3 +1,5 @@
+#  -mwindows - убирает консоль при запуске *.exe
+
 cmake_minimum_required(VERSION 3.26.3 FATAL_ERROR)
 project(project_nn
 	VERSION 1.0.0
@@ -24,6 +26,15 @@ set(COMPILE_FEATURES
 	c_std_23
 )
 
+if (svm_compile OR app_compile)
+	set(SDL2_DIR ${CMAKE_SOURCE_DIR}/external/SDL2-2.28.5/cmake)
+	find_package(SDL2 REQUIRED)
+	configure_file(
+		${CMAKE_SOURCE_DIR}/external/SDL2-2.28.5/x86_64-w64-mingw32/bin/SDL2.dll
+		${CMAKE_BINARY_DIR}/SDL2.dll
+		COPYONLY
+	)
+endif()
 
 if (core_compile)
 	message("   CORE COMPILATION")

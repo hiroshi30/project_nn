@@ -1,12 +1,10 @@
-#include <stdio.h>
-#include <stdbool.h>
-#include <stdlib.h>
-
-#include <SDL.h>
+#include <SDL2/SDL.h>
 
 #include <kazamori.h>
 #include <print.h>
 
+
+#define DEBUG
 
 #define title "SVM"
 #define window_width (16 * 65)
@@ -28,7 +26,7 @@ int surface[window_width][window_height];
 
 int main(int argc, char* argv[]) {
     if (init() != 0) {
-        printf("!!! ERROR in init() !!!\n");
+        perror("!!! ERROR in init() !!!\n");
         return 1;
     }
 
@@ -57,12 +55,8 @@ int main(int argc, char* argv[]) {
 
     DataSet* train_set = DataSet_construct(0, 2, types_count);
 
-    int layers[] = {2, 4, types_count};
-    int* ptr_layers = layers;
-
-    // asdadasdasdasdasdadasda
-    FullConnected* layer = FullConnected_construct(3, ptr_layers, 0.6, 0.4);
-    FullConnected_train_construct(layer);
+    FullConnected* layer = FullConnected_construct(3, (int[]){2, 4, types_count});
+    FullConnected_train_construct(layer, 0.6, 0.4);
 
 
     int x, y;
@@ -71,7 +65,6 @@ int main(int argc, char* argv[]) {
     bool run = true;
     bool action = true;
     SDL_Event event;
-
 
     while (run) {
         while(SDL_PollEvent(&event) != 0) {
@@ -100,7 +93,9 @@ int main(int argc, char* argv[]) {
                 }
                 if (event.key.keysym.sym == SDLK_q) {
                     action = true;
-                    printf("epochs %d\n", FullConnected_train_alpha(layer, train_set, 0.0003));
+                    #ifdef DEBUG
+                        printf("epochs %d\n", FullConnected_train_alpha(layer, train_set, 0.0003));
+                    #endif
                     FullConnected_check(layer, train_set);
                     for (int xi = 0; xi < window_width; ++xi) {
                         for (int yi = 0; yi < window_height; ++yi) {
@@ -108,7 +103,7 @@ int main(int argc, char* argv[]) {
                             double* ptr = inp;
                             FullConnected_forward(layer, ptr);
                             for (int i = 0; i < types_count; ++i) {
-                                if (layer->x[layer->layers_length - 1][0] > 0.5) {
+                                if (layer->x[layer->length - 1][0] > 0.5) {
                                     surface[xi][yi] = 1;
                                 } else {
                                     surface[xi][yi] = 2;
@@ -127,7 +122,9 @@ int main(int argc, char* argv[]) {
                     } else {
                         DataSet_add(train_set, (double[]){(double)x / window_width, (double)y / window_height, 0, 1});
                     }
-                    DataSet_print(train_set);
+                    #ifdef DEBUG
+                        DataSet_print(train_set);
+                    #endif
                 }
             }
         }
@@ -195,19 +192,19 @@ int main(int argc, char* argv[]) {
 
 int init() {
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
-        printf("!!! ERROR in SDL_Init() !!!\n%s", SDL_GetError());
+        perror("!!! ERROR in SDL_Init() !!!\n%s", SDL_GetError());
         return 1;
     }
 
     window = SDL_CreateWindow(title, 100, 100, window_width, window_height, SDL_WINDOW_SHOWN);
     if (window == NULL) {
-        printf("!!! ERROR in SDL_CreateWindow() !!!\n%s", SDL_GetError());
+        perror("!!! ERROR in SDL_CreateWindow() !!!\n%s", SDL_GetError());
         return 1;
     }
 
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     if (renderer == NULL) {
-        printf("!!! ERROR in SDL_CreateRenderer() !!!\n%s", SDL_GetError());
+        perror("!!! ERROR in SDL_CreateRenderer() !!!\n%s", SDL_GetError());
         return 1;
     }
 

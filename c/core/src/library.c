@@ -4,14 +4,14 @@
 #include "library.h"
 
 
-// Function that return random double in [from; to]
-double random(double from, double to) {
-	return from + (double)rand() / (double)RAND_MAX * (to - from);
+// Function that return random double in [start; end]
+double random(double start, double end) {
+	return start + (double)rand() / (double)RAND_MAX * (end - start);
 }
 
-// Function that return random int in [from; to]
-double random_int(int from, int to) {
-	return from + rand() * (to - from) / RAND_MAX;
+// Function that return random int in [start; end]
+double random_int(int start, int end) {
+	return start + rand() * (end - start) / RAND_MAX;
 }
 
 
@@ -23,9 +23,6 @@ double Sigmoid_f(double x) {
 double Sigmoid_df(double x) {
 	return x * (1 - x);
 }
-// ActivationFunction Sigmoid;
-// Sigmoid.f = Sigmoid_f;
-// Sigmoid.df = Sigmoid_df;
 
 double ReLU_f(double x) {
 	if (x > 0) {
@@ -42,12 +39,12 @@ double ReLU_df(double x) {
 }
 
 void SoftMax_f(int length, double* x, double* y) {
-	double summ = 0;
+	double sum = 0;
 	for (int i = 0; i < length; ++i) {
-		summ += pow(e, x[i]);
+		sum += pow(e, x[i]);
 	}
 	for (int i = 0; i < length; ++i) {
-		y[i] = pow(e, x[i]) / summ;
+		y[i] = pow(e, x[i]) / sum;
 	}
 }
 
