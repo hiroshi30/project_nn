@@ -26,7 +26,7 @@ int surface[window_width][window_height];
 
 int main(int argc, char* argv[]) {
     if (init() != 0) {
-        perror("!!! ERROR in init() !!!\n");
+        printf("!!! ERROR in init() !!!\n");
         return 1;
     }
 
@@ -40,15 +40,15 @@ int main(int argc, char* argv[]) {
 
     int types_count = 2;
     SDL_Color** colors = (SDL_Color**)malloc(sizeof(SDL_Color*) * types_count);
-    colors[0] = create_color(colors[0], 200, 40, 55, 255);
-    colors[1] = create_color(colors[1], 30, 200, 38, 255);
+    colors[0] = create_color(colors[0], 220, 40, 55, 255);
+    colors[1] = create_color(colors[1], 50, 50, 220, 255);
 
     SDL_Color** background_colors = (SDL_Color**)malloc(sizeof(SDL_Color*) * types_count);
-    background_colors[0] = create_color(background_colors[0], 255, 150, 150, 255);
-    background_colors[1] = create_color(background_colors[1], 120, 255, 120, 255);
+    background_colors[0] = create_color(background_colors[0], 255, 180, 180, 255);
+    background_colors[1] = create_color(background_colors[1], 180, 180, 255, 255);
 
     SDL_Color* border_color = (SDL_Color*)malloc(sizeof(SDL_Color));
-    border_color = create_color(border_color, 40, 40, 40, 255);
+    border_color = create_color(border_color, 45, 45, 45, 255);
 
     SDL_Color* background_color = (SDL_Color*)malloc(sizeof(SDL_Color));
     background_color = create_color(background_color, 255, 255, 255, 255);
@@ -192,19 +192,19 @@ int main(int argc, char* argv[]) {
 
 int init() {
     if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
-        perror("!!! ERROR in SDL_Init() !!!\n%s", SDL_GetError());
+        printf("!!! ERROR in SDL_Init() !!!\n%s", SDL_GetError());
         return 1;
     }
 
     window = SDL_CreateWindow(title, 100, 100, window_width, window_height, SDL_WINDOW_SHOWN);
     if (window == NULL) {
-        perror("!!! ERROR in SDL_CreateWindow() !!!\n%s", SDL_GetError());
+        printf("!!! ERROR in SDL_CreateWindow() !!!\n%s", SDL_GetError());
         return 1;
     }
 
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
     if (renderer == NULL) {
-        perror("!!! ERROR in SDL_CreateRenderer() !!!\n%s", SDL_GetError());
+        printf("!!! ERROR in SDL_CreateRenderer() !!!\n%s", SDL_GetError());
         return 1;
     }
 
