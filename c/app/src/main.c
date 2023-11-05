@@ -39,8 +39,26 @@ int main(int argc, char* argv[]) {
 	ImageSet_print_input(image_set);
 	
 	MaxPooling_forward(layer, image_set->input[0]);
-
 	MaxPooling_print_output(layer);
+
+	double*** ptr = (double***)malloc(sizeof(double**) * 2);
+	ptr[0] = (double**)malloc(sizeof(double*) * 2);
+	ptr[0][0] = (double*)malloc(sizeof(double) * 2);
+	ptr[0][1] = (double*)malloc(sizeof(double) * 2);
+	ptr[1] = (double**)malloc(sizeof(double*) * 2);
+	ptr[1][0] = (double*)malloc(sizeof(double) * 2);
+	ptr[1][1] = (double*)malloc(sizeof(double) * 2);
+	ptr[0][0][0] = 2;
+	ptr[0][0][1] = 2;
+	ptr[0][1][0] = 2;
+	ptr[0][1][1] = 2;
+
+	ptr[1][0][0] = 2;
+	ptr[1][0][1] = 2;
+	ptr[1][1][0] = 2;
+	ptr[1][1][1] = 2;
+	MaxPooling_backward(layer, ptr);
+	MaxPooling_print_err(layer);
 
 	ImageSet_destruct(image_set);
 	MaxPooling_destruct(layer);

@@ -1,11 +1,11 @@
 #include <stdlib.h>
-#include <math.h>
 
 #include "max_pooling.h"
 
 
 MaxPooling* MaxPooling_construct(int channels, int height, int width, int matrix_h, int matrix_w) {
     MaxPooling* layer = (MaxPooling*)malloc(sizeof(MaxPooling));
+
     layer->channels = channels;
     layer->height = height;
     layer->width = width;
@@ -79,7 +79,9 @@ void MaxPooling_forward(MaxPooling* layer, double*** input) {
                 for (int mh = 0; mh < layer->matrix_h; ++mh) {
                     for (int mw = 0; mw < layer->matrix_w; ++mw) {
                         layer->input[c][hh * layer->matrix_h + mh][ww * layer->matrix_w + mw] = input[c][hh * layer->matrix_h + mh][ww * layer->matrix_w + mw];
-                        layer->output[c][hh][ww] = fmax(layer->output[c][hh][ww], layer->input[c][hh * layer->matrix_h + mh][ww * layer->matrix_w + mw]);
+                        if (layer->input[c][hh * layer->matrix_h + mh][ww * layer->matrix_w + mw] > layer->output[c][hh][ww]) {
+                           layer->output[c][hh][ww] = layer->input[c][hh * layer->matrix_h + mh][ww * layer->matrix_w + mw];
+                        }
                     }
                 }
             }
@@ -87,4 +89,19 @@ void MaxPooling_forward(MaxPooling* layer, double*** input) {
     }
 }
 
-void MaxPooling_backward(MaxPooling* layer, double*** output);
+void MaxPooling_backward(MaxPooling* layer, double*** output) {
+    for (int c = 0; c < layer->channels; ++c) {
+        for (int hh = 0; hh < layer->height / layer->matrix_h; ++hh) {
+            for (int ww = 0; ww < layer->width / layer->matrix_w; ++ww) {
+                for (int mh = 0; mh < layer->matrix_h; ++mh) {
+                    for (int mw = 0; mw < layer->matrix_w; ++mw) {
+                        layer->err[c][hh * layer->matrix_h + mh][ww * layer->matrix_w + mw] = 0;
+                        if (layer->output[c][hh][ww] == layer->input[c][hh * layer->matrix_h + mh][ww * layer->matrix_w + mw]) {
+                           layer->err[c][hh * layer->matrix_h + mh][ww * layer->matrix_w + mw] = output[c][hh][ww];
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
