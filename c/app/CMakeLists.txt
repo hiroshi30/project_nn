@@ -8,13 +8,13 @@ target_sources(app PRIVATE
 )
 
 target_include_directories(app PRIVATE
-    ${SDL2_INCLUDE_DIRS}
+    #${SDL2_INCLUDE_DIRS}
     core
     print
 )
 
 target_link_libraries(app PRIVATE
-    ${SDL2_LIBRARIES}
+    #${SDL2_LIBRARIES}
     
     core
     print

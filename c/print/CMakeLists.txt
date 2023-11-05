@@ -7,6 +7,7 @@ target_sources(print PRIVATE
 	src/print_data_set.c
 	src/print_full_connected.c
 
+	src/print_image_set.c
 	src/print_max_pooling.c
 )
 

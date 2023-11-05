@@ -52,14 +52,14 @@ void MaxPooling_print_output(MaxPooling* layer) {
 			printf("{");
 
 			for (int ww = 0; ww < layer->width / layer->matrix_w; ++ww) {
-				if (ww < layer->width - 1) {
+				if (ww < layer->width / layer->matrix_w - 1) {
 					printf("%lf, ", layer->output[c][hh][ww]);
 				} else {
 					printf("%lf", layer->output[c][hh][ww]);
 				}
 			}
 
-			if (hh < layer->height - 1) {
+			if (hh < layer->height / layer->matrix_h - 1) {
 				printf("},\n");
 			} else {
 				printf("}\n");
