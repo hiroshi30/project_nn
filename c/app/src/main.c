@@ -57,6 +57,7 @@ int main(int argc, char* argv[]) {
 	ptr[1][0][1] = 2;
 	ptr[1][1][0] = 2;
 	ptr[1][1][1] = 2;
+
 	MaxPooling_backward(layer, ptr);
 	MaxPooling_print_err(layer);
 

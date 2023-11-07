@@ -27,7 +27,6 @@ MaxPooling* MaxPooling_construct(int channels, int height, int width, int matrix
             layer->output[c][h] = (double*)malloc(sizeof(double) * (layer->width / layer->matrix_w));
         }
     }
-
     return layer;
 }
 
