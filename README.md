@@ -31,7 +31,7 @@ pip install -r requirements.txt
 
 !!!Skip connection, dense слои в свёрточных нейронных сетях, Dropout layer Genetic algorithm Ensemble!!!
 
-Источники:\
+## Sources
 [Нейронные сети для начинающих. Часть 1](https://habr.com/ru/post/312450/)\
 [Нейронные сети для начинающих. Часть 2](https://habr.com/ru/post/313216/)\
 [Common Loss functions in machine learning](https://towardsdatascience.com/common-loss-functions-in-machine-learning-46af0ffc4d23)\
